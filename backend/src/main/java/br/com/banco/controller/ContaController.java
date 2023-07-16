@@ -20,7 +20,7 @@ public class ContaController {
 		this.contaService = contaService;
 	}
 	
-	@GetMapping("/lista")
+	@GetMapping
 	public ResponseEntity<List<Conta>> listarContas(){
 		return contaService.listarContas();
 	}
