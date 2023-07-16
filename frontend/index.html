@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Extrato bancario</title>
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="d-flex justify-content-between">
+
+            <div>
+                <label for="start">Data de Início</label><br>
+                <input type="date" id="start" value="2023-07-12" min="2000-01-01" max="2023-12-31">
+            </div>
+            <div>
+                <label for="end">Data de Fim</label><br>
+                <input type="date" id="end" value="2023-07-12" min="2000-01-01" max="2023-12-31">
+            </div>
+            <div>
+                <label for="operador">Nome do operador transacionado</label><br>
+                <input type="text">
+            </div>
+        </div>
+        <div class="d-flex justify-content-end py-5">
+            <button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Saldo Total: <span>R$50,00</span></th>
+                        <th colspan="2">Saldo no período: <span>R$50,00</span></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="col">Dados</th>
+                        <th scope="col">Valentia</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Nome operador transacionado</th>
+                    </tr>
+                    <tr>
+                        <td>14/02/2019</td>
+                        <td>R$ 30895,46</td>
+                        <td>Depósito</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>12/04/2019</td>
+                        <td>R$ 12,24</td>
+                        <td>Transferência Entrada</td>
+                        <td>Fulano</td>
+                    </tr>
+                    <tr>
+                        <td>11/06/2020</td>
+                        <td>R$ -500,50</td>
+                        <td>Transferência Saída</td>
+                        <td>Sicrano</td>
+                    </tr>
+                    <tr>
+                        <td>11/06/2020</td>
+                        <td>R$ -1234,00</td>
+                        <td>Saque</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">«</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">»</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="bg-dark">
+        <p class="text-center py-3">Todos os direitos reservados <i class="bi bi-c-circle"></i> 2023 &#128074; Desenvolvido por Jiulio Gusmão</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
