@@ -3,6 +3,7 @@ package br.com.banco.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,9 +24,17 @@ public class Transferencia {
 	
 	@Id
 	private long id;
+	
+	@Column(name = "data_transferencia")
 	private LocalDateTime dataTransferencia;
+	
+	@Column(name = "valor")
 	private double valor;
+	
+	@Column(name = "tipo")
 	private TipoMovimentacao tipo;
+	
+	@Column(name = "nome_operador_transacao")
 	private String nomeOperadorTransacao;
 	
 	@ManyToMany
