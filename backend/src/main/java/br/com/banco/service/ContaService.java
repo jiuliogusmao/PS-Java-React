@@ -1,17 +1,17 @@
 package br.com.banco.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.com.banco.dto.ContaDTO;
 import br.com.banco.entities.Conta;
 import br.com.banco.repository.ContaRepository;
 
 @Service
-@Transactional
 public class ContaService {
 	
 	private ContaRepository contaRepository;
@@ -20,10 +20,12 @@ public class ContaService {
 		this.contaRepository = contaRepository;
 	}
 	
-	public ResponseEntity<List<Conta>> listarContas(){
+	public ResponseEntity<List<ContaDTO>> listarContas(){
 		List<Conta> contas = contaRepository.findAll();
 		
-		return ResponseEntity.ok(contas);
+		return ResponseEntity.status(HttpStatus.OK).body(
+				contas.stream().map(ContaDTO::new)
+				.collect(Collectors.toList()));
 	}
 	
 

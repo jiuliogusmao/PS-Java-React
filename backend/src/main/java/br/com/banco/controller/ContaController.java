@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.banco.entities.Conta;
+import br.com.banco.dto.ContaDTO;
 import br.com.banco.service.ContaService;
 
 @RestController
@@ -21,7 +21,7 @@ public class ContaController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Conta>> listarContas(){
+	public ResponseEntity<List<ContaDTO>> listarContas(){
 		return contaService.listarContas();
 	}
 	
