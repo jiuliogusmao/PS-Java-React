@@ -1,9 +1,14 @@
 package br.com.banco.service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,5 +55,13 @@ public class TransferenciaService {
 				.collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(transferenciasDTO);
 	}
-
+	
+	public ResponseEntity<Page<Transferencia>> findAllByPeriodo(String minData, String maxData, Pageable pageable){
+		LocalDateTime atual = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
+		LocalDateTime min = minData.equals("") ? atual.minusDays(365) : LocalDateTime.parse(minData);
+		LocalDateTime max = minData.equals("") ? atual : LocalDateTime.parse(maxData);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(transferenciaRepository.findByPeriodo(min, max, pageable));
+	}
+	
 }
