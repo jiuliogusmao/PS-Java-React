@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,6 +34,7 @@ public class Transferencia {
 	private double valor;
 	
 	@Column(name = "tipo")
+	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipo;
 	
 	@Column(name = "nome_operador_transacao")

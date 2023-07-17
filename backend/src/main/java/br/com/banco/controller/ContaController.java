@@ -11,7 +11,7 @@ import br.com.banco.dto.ContaDTO;
 import br.com.banco.service.ContaService;
 
 @RestController
-@RequestMapping("/conta")
+@RequestMapping("/contas")
 public class ContaController {
 	
 	private ContaService contaService;
