@@ -1,6 +1,6 @@
 package br.com.banco.dto;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,7 +26,7 @@ public class TransferenciaDTO {
 	private long id;
 	
 	@NotNull
-	private LocalDateTime dataTransferencia;
+	private OffsetDateTime dataTransferencia;
 	
 	@NotNull
 	private double valor;

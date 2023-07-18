@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.banco.dto.TransferenciaDTO;
@@ -34,11 +33,9 @@ public class TransferenciaController {
 		return transferenciaService.listarTransferenciasPorConta(conta);
 	}
 	
-	@GetMapping("/findByPeriodo")
-	public ResponseEntity<Page<Transferencia>> findByPeriodo(@RequestParam(value="minData", defaultValue = "") String minData, 
-	@RequestParam(value="maxData", defaultValue = "") String maxData, 
-	Pageable pageable){
-		return transferenciaService.findAllByPeriodo(minData, maxData, pageable);
-	}
+	@GetMapping ("/periodo/{inicio}/{fim}")
+	public ResponseEntity<Page<Transferencia>> buscarPorPeriodo (@PathVariable String inicio, @PathVariable String fim, Pageable pageable) {
+		  return transferenciaService.buscarPorPeriodo (inicio, fim, pageable);
+		}
 
 }
