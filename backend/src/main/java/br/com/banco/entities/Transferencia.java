@@ -1,6 +1,6 @@
 package br.com.banco.entities;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +27,8 @@ public class Transferencia {
 	@Id
 	private long id;
 	
-	@Column(name = "data_transferencia")
-	private LocalDateTime dataTransferencia;
+	@Column (name="data_transferencia", nullable=false, columnDefinition="TIMESTAMP WITH TIME ZONE")
+	private OffsetDateTime dataTransferencia = OffsetDateTime.now();
 	
 	@Column(name = "valor")
 	private double valor;

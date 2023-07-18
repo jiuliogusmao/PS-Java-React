@@ -1,8 +1,7 @@
 package br.com.banco.service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,47 +20,51 @@ import br.com.banco.repository.TransferenciaRepository;
 
 @Service
 public class TransferenciaService {
-	
+
 	private TransferenciaRepository transferenciaRepository;
 	private ContaRepository contaRepository;
 
-	
-	
 	public TransferenciaService(TransferenciaRepository transferenciaRepository, ContaRepository contaRepository) {
 		this.transferenciaRepository = transferenciaRepository;
 		this.contaRepository = contaRepository;
 	}
 
-	public ResponseEntity<List<TransferenciaDTO>> listarTransferencias(){
+	public ResponseEntity<List<TransferenciaDTO>> listarTransferencias() {
 		List<Transferencia> transferencias = transferenciaRepository.findAll();
-		
-		return ResponseEntity.status(HttpStatus.OK).body(
-				transferencias.stream().map(TransferenciaDTO::new)
-				.collect(Collectors.toList()));
+
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(transferencias.stream().map(TransferenciaDTO::new).collect(Collectors.toList()));
 	}
-	
-	public ResponseEntity<List<TransferenciaDTO>> listarTransferenciasPorConta(Long conta){
+
+	public ResponseEntity<List<TransferenciaDTO>> listarTransferenciasPorConta(Long conta) {
 		if (conta <= 0) {
 			return ResponseEntity.badRequest().build();
 		}
-		Optional<Conta>optionalConta = contaRepository.findById(conta);
-		if(!optionalConta.isPresent()) {
+		Optional<Conta> optionalConta = contaRepository.findById(conta);
+		if (!optionalConta.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		Conta contaBancaria = optionalConta.get();
 		List<Transferencia> transferencias = transferenciaRepository.findAllByContas(contaBancaria);
-		List<TransferenciaDTO> transferenciasDTO = transferencias.stream()
-				.map(TransferenciaDTO::new)
+		List<TransferenciaDTO> transferenciasDTO = transferencias.stream().map(TransferenciaDTO::new)
 				.collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(transferenciasDTO);
 	}
-	
-	public ResponseEntity<Page<Transferencia>> findAllByPeriodo(String minData, String maxData, Pageable pageable){
-		LocalDateTime atual = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
-		LocalDateTime min = minData.equals("") ? atual.minusDays(365) : LocalDateTime.parse(minData);
-		LocalDateTime max = minData.equals("") ? atual : LocalDateTime.parse(maxData);
+
+	public ResponseEntity<Page<Transferencia>> buscarPorPeriodo(String inicio, String fim, Pageable pageable) {
+
+		// converte inicio para OffSetDateTime
+		OffsetDateTime dataHoraInicio = OffsetDateTime.parse(inicio, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		OffsetDateTime dataHoraFim = OffsetDateTime.parse(fim, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(transferenciaRepository.findByPeriodo(min, max, pageable));
+		if (dataHoraInicio == null) {
+			return ResponseEntity.badRequest().body(null); // retornar um erro 400 se o inicio for nulo
+		}
+
+
+		Page<Transferencia> transferencias = transferenciaRepository.findByPeriodo(dataHoraInicio, dataHoraFim,
+				pageable);
+		return ResponseEntity.ok(transferencias);
 	}
-	
+
 }
