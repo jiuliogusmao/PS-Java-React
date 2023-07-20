@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,8 +27,9 @@ public class Conta {
 
 	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
-
-	@ManyToMany(mappedBy = "contas")
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "conta")
 	private List<Transferencia> transferencias;
 
 }
