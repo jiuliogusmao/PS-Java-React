@@ -14,9 +14,9 @@ import br.com.banco.entities.Transferencia;
 
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long>{
 
-	List<Transferencia> findAllByContas(Conta conta);
+	List<Transferencia> findAllByConta(Conta conta);
 	
-	@Query ("SELECT t FROM Transferencia t WHERE t.dataTransferencia BETWEEN :inicio AND :fim")
+	@Query ("SELECT t FROM Transferencia t WHERE t.dataTransferencia BETWEEN :inicio AND :fim ORDER BY t.dataTransferencia ASC")
 	Page<Transferencia> findByPeriodo (@Param ("inicio") OffsetDateTime dataHoraInicio, @Param ("fim") OffsetDateTime dataHoraFim, Pageable pageable);
 
 }

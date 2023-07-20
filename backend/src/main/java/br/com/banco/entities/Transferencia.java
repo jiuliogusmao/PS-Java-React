@@ -1,7 +1,6 @@
 package br.com.banco.entities;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,10 +38,8 @@ public class Transferencia {
 	@Column(name = "nome_operador_transacao")
 	private String nomeOperadorTransacao;
 	
-	@ManyToMany
-    @JoinTable (name = "transferencia_conta",
-        joinColumns = @JoinColumn (name = "transferencia_id"),
-        inverseJoinColumns = @JoinColumn (name = "conta_id"))
-    private List<Conta> contas;
+	@ManyToOne
+    @JoinColumn (name = "conta_id")
+    private Conta conta;
 	
 }

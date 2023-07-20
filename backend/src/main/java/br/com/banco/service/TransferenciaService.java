@@ -1,7 +1,9 @@
 package br.com.banco.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,18 +47,18 @@ public class TransferenciaService {
 			return ResponseEntity.notFound().build();
 		}
 		Conta contaBancaria = optionalConta.get();
-		List<Transferencia> transferencias = transferenciaRepository.findAllByContas(contaBancaria);
+		List<Transferencia> transferencias = transferenciaRepository.findAllByConta(contaBancaria);
 		List<TransferenciaDTO> transferenciasDTO = transferencias.stream().map(TransferenciaDTO::new)
 				.collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(transferenciasDTO);
 	}
 
-	public ResponseEntity<Page<Transferencia>> buscarPorPeriodo(String inicio, String fim, Pageable pageable) {
+	public ResponseEntity<Page<Transferencia>> buscarPorPeriodo(LocalDate inicio, LocalDate fim, Pageable pageable) {
 
-		// converte inicio para OffSetDateTime
-		OffsetDateTime dataHoraInicio = OffsetDateTime.parse(inicio, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		OffsetDateTime dataHoraFim = OffsetDateTime.parse(fim, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		
+		ZoneOffset offset = ZoneOffset.of("-03:00");
+	    OffsetDateTime dataHoraInicio = inicio.atStartOfDay().atOffset(offset);
+	    OffsetDateTime dataHoraFim = fim.atTime(LocalTime.MAX).atOffset(offset);
+	    
 		if (dataHoraInicio == null) {
 			return ResponseEntity.badRequest().body(null); // retornar um erro 400 se o inicio for nulo
 		}

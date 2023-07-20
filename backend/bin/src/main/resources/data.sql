@@ -29,3 +29,18 @@ INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_tra
 INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_transacao, conta_id) VALUES (5,'2020-06-08 10:15:01+03',3241.23,'TRANSFERENCIA', 'Beltrano',1);
 INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_transacao, conta_id) VALUES (6,'2021-04-01 12:12:04+03',25173.09,'TRANSFERENCIA', 'Ronnyscley',2);
 
+create table transferencia_conta (
+  transferencia_id bigint not null,
+  conta_id bigint not null,
+  primary key (transferencia_id, conta_id),
+  foreign key (transferencia_id) references transferencia (id),
+  foreign key (conta_id) references conta (id_conta)
+);
+
+insert into transferencia_conta (transferencia_id, conta_id) values (1, 1);
+insert into transferencia_conta (transferencia_id, conta_id) values (2, 2);
+insert into transferencia_conta (transferencia_id, conta_id) values (3, 1);
+insert into transferencia_conta (transferencia_id, conta_id) values (4, 2);
+insert into transferencia_conta (transferencia_id, conta_id) values (5, 1);
+insert into transferencia_conta (transferencia_id, conta_id) values (6, 2);
+
