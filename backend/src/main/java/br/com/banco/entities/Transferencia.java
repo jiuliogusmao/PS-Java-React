@@ -41,9 +41,7 @@ public class Transferencia {
 	private String nomeOperadorTransacao;
 	
 	@ManyToMany
-    @JoinTable (name = "transferencia_conta",
-        joinColumns = @JoinColumn (name = "transferencia_id"),
-        inverseJoinColumns = @JoinColumn (name = "conta_id"))
+    @JoinColumn (name = "conta_id")
     private List<Conta> contas;
 	
 }
