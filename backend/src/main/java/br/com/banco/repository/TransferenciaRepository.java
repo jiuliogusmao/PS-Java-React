@@ -19,4 +19,6 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, Lo
 	@Query ("SELECT t FROM Transferencia t WHERE t.dataTransferencia BETWEEN :inicio AND :fim ORDER BY t.dataTransferencia ASC")
 	Page<Transferencia> findByPeriodo (@Param ("inicio") OffsetDateTime dataHoraInicio, @Param ("fim") OffsetDateTime dataHoraFim, Pageable pageable);
 
+	List<Transferencia> findByNomeOperadorTransacao(String nomeOperador);
+
 }
