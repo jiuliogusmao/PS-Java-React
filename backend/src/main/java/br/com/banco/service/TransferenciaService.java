@@ -48,9 +48,9 @@ public class TransferenciaService {
 		}
 		Conta contaBancaria = optionalConta.get();
 		List<Transferencia> transferencias = transferenciaRepository.findAllByConta(contaBancaria);
-		List<TransferenciaDTO> transferenciasDTO = transferencias.stream().map(TransferenciaDTO::new)
+		List<TransferenciaDTO> transferenciasDto = transferencias.stream().map(TransferenciaDTO::new)
 				.collect(Collectors.toList());
-		return ResponseEntity.status(HttpStatus.OK).body(transferenciasDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(transferenciasDto);
 	}
 
 	public ResponseEntity<Page<Transferencia>> buscarPorPeriodo(LocalDate inicio, LocalDate fim, Pageable pageable) {
@@ -67,6 +67,12 @@ public class TransferenciaService {
 		Page<Transferencia> transferencias = transferenciaRepository.findByPeriodo(dataHoraInicio, dataHoraFim,
 				pageable);
 		return ResponseEntity.ok(transferencias);
+	}
+	
+	public ResponseEntity<List<TransferenciaDTO>> listarPorNomeOperador(String nomeOperador){
+		List<Transferencia> transferencias = transferenciaRepository.findByNomeOperadorTransacao(nomeOperador);
+		List<TransferenciaDTO> transferenciaDto = transferencias.stream().map(TransferenciaDTO::new).collect(Collectors.toList());
+		return ResponseEntity.status(HttpStatus.OK).body(transferenciaDto);
 	}
 
 }

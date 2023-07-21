@@ -32,7 +32,7 @@ public class TransferenciaController {
 		return transferenciaService.listarTransferencias();
 	}
 
-	@GetMapping("/{conta}")
+	@GetMapping("/conta/{conta}")
 	public ResponseEntity<List<TransferenciaDTO>> listarTransferenciaPorConta(@PathVariable Long conta) {
 		return transferenciaService.listarTransferenciasPorConta(conta);
 	}
@@ -43,6 +43,11 @@ public class TransferenciaController {
 			@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fim,
 			@PageableDefault(page = 0, size = 10, sort = "dataTransferencia", direction = Sort.Direction.ASC) Pageable pageable) {
 		return transferenciaService.buscarPorPeriodo(inicio, fim, pageable);
+	}
+	
+	@GetMapping("/operador/{nomeOperador}")
+	public ResponseEntity<List<TransferenciaDTO>> buscarPorNomeOperador(@PathVariable String nomeOperador){
+		return transferenciaService.listarPorNomeOperador(nomeOperador);
 	}
 
 }
